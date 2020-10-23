@@ -11,6 +11,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Have to rebuild project if first time adding the view
 
         //This is manual navigation with buttons and stuff
         btnLogin.setOnClickListener {
