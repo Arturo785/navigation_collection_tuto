@@ -2,10 +2,13 @@ package com.example.navigationcollectiontuto
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,5 +39,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navControler.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    //The menu we created
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        // the global action set of the nav_graph
+        //This way we can send data and also animations
+        return if (item. itemId == R.id.termsAndConditions){
+            val action = NavGraphDirections.actionGlobalTermsFragment()
+            navControler.navigate(action)
+            true
+        }
+        else {
+            item.onNavDestinationSelected(navControler) || super.onOptionsItemSelected(item)
+            // navigates to the destination we clicked
+            //Destination has to have the same name as the id of the option
+        }
     }
 }
