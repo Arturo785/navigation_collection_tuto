@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navControler : NavController
+
+    private lateinit var appBarConfiguration : AppBarConfiguration
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +35,16 @@ class MainActivity : AppCompatActivity() {
 
         navControler = navHostFragment.findNavController()
 
+        //Sets the top level destinations to not show the arrow back button
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment, R.id.searchFragment)
+        )
+
         setSupportActionBar(toolBar)
-        setupActionBarWithNavController(navControler)
+        setupActionBarWithNavController(navControler, appBarConfiguration)
+
+        // connects the nav_bar with the navigation
+        bottom_nav.setupWithNavController(navControler)
 
     }
 
