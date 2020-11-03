@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         //Sets the top level destinations to not show the arrow back button
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.searchFragment)
+            setOf(R.id.homeFragment, R.id.searchFragment),
+            drawer_layout // this puts the hamburger menu
         )
 
         setSupportActionBar(toolBar)
@@ -46,10 +44,14 @@ class MainActivity : AppCompatActivity() {
         // connects the nav_bar with the navigation
         bottom_nav.setupWithNavController(navControler)
 
+        //This is for the drawerNavigation
+        nav_view_drawer.setupWithNavController(navControler)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navControler.navigateUp() || super.onSupportNavigateUp()
+        //When receiving the appBarConfig is for handling the drawermenu and stuff
+        return navControler.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     //The menu we created
